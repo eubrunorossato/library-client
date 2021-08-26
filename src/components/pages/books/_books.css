@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+.box{
+  padding: 1rem 1rem 1rem 1rem;
+  margin-top: 2rem;
+  border-color: #b7b7b7;
+  border-radius: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .buttonDivs{
   display: flex;
   flex-direction: column;
