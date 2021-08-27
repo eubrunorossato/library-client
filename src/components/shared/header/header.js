@@ -7,7 +7,7 @@ import {
   Divider,
 } from 'react-materialize'
 import './_header.css'
-export default function home() {
+const Header = () => {
   return (
     <Navbar
       alignLinks="right"
@@ -56,4 +56,6 @@ export default function home() {
       </Dropdown>
     </Navbar>
   )
-}
+};
+
+export default Header;

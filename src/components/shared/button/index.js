@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'react-materialize';
 import './_button.css'
 
-export default function (props) {
+const ButtonShared = (props) => {
   return (
     <Button
       large
@@ -15,4 +15,6 @@ export default function (props) {
       </Icon>
     </Button>
   )
-}
+};
+
+export default ButtonShared;

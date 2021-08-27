@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../shared/button/index';
 import Card from '../../shared/cards/index';
-import axios from 'axios';
+import axios from '../../../config/axios';
 import { Row, Col, Container } from 'react-materialize';
 import './_books.css'
 
-export default function () {
+const Books = () => {
+  const [bookList, setBookList] = useState([]);
+  useEffect(() => {
+    async function getBookList() {
+      const { data } = await axios.get('/api/books/getAll')
+      console.log(data);
+    };
+    getBookList();
+  }, []);
   return (
     <Container>
       <div className="box">
@@ -15,7 +23,6 @@ export default function () {
             s={12}
           >
             <Card />
-
           </Col>
           <Col
             m={6}
@@ -36,3 +43,5 @@ export default function () {
     </Container >
   )
 }
+
+export default Books

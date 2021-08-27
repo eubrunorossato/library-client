@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardTitle, Icon } from 'react-materialize';
 
-export default function () {
+const CardsShared = () => {
   return (
     <Card
       actions={[
@@ -15,4 +15,6 @@ export default function () {
       Here is the standard card with a horizontal image.
     </Card>
   )
-}
+};
+
+export default CardsShared;
