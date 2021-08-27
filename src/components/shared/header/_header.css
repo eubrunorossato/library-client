@@ -9,3 +9,7 @@ div .brand-logo {
 .dropdown-content li a {
   color: black;
 }
+
+ul.hide-on-med-and-down  li{
+  margin-right: 1rem;
+}

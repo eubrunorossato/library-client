@@ -5,10 +5,10 @@ const CardsShared = (props) => {
   return (
     <Card
       actions={[
-        <p>{props.bookName}</p>
+        <p key={props.keyId}>{props.bookName}</p>
       ]}
       closeIcon={<Icon>close</Icon>}
-      header={<CardTitle image="https://materializecss.com/images/sample-1.jpg" />}
+      header={<CardTitle image={`data:image/png;base64,${props.imageBase64}`} />}
       horizontal
       revealIcon={<Icon>more_vert</Icon>}
     >
