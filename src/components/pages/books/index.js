@@ -1,35 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../shared/button/index';
 import Card from '../../shared/cards/index';
-import axios from '../../../config/axios';
+import axios from '../../../helpers/axios';
 import { Row, Col, Container } from 'react-materialize';
-import './_books.css'
+import './_books.css';
+
 
 const Books = () => {
   const [bookList, setBookList] = useState([]);
-  useEffect(() => {
-    async function getBookList() {
-      const { data } = await axios.get('/api/books/getAll')
-      console.log(data);
-    };
-    getBookList();
-  }, []);
-  return (
-    <Container>
-      <div className="box">
+  function renderBookList() {
+    return bookList.map(book => (
+      <div key={book.id} className="box">
         <Row>
           <Col
             m={6}
             s={12}
           >
-            <Card />
+            <Card bookName={book.name} bookResume={book.resume} />
           </Col>
           <Col
             m={6}
             s={12}
           >
             <div className="actionPanel">
-              <p>Avaliables:</p>
+              <p>Avaliables to book: <span>{book.avaliables}</span></p>
               <div className="buttonDivs">
                 <Button iconName="book_online" buttonLabel="Book" />
               </div>
@@ -40,6 +34,18 @@ const Books = () => {
           </Col>
         </Row >
       </div>
+    ))
+  }
+  useEffect(() => {
+    async function fetchBookList() {
+      const { data } = await axios.get('/api/books/getAll');
+      setBookList(data.books);
+    }
+    fetchBookList();
+  }, []);
+  return (
+    <Container>
+      {renderBookList()}
     </Container >
   )
 }
