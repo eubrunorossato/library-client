@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../shared/button/index';
 import Card from '../../shared/cards/index';
+import Loading from '../../shared/loading/index'
 import { axiosInstance, convertBufferToImage } from '../../../helpers';
 import { Row, Col, Container } from 'react-materialize';
 import './_books.css';
@@ -45,16 +46,18 @@ const getImagesBase64 = (bookList) => {
 
 const Books = () => {
   const [bookList, setBookList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchBookList() {
       const { data } = await axiosInstance.get('/api/books/getAll');
       setBookList(data.books);
+      setIsLoading(false)
     }
     fetchBookList();
   }, []);
   return (
     <Container>
-      {renderBookList(bookList)}
+      {!isLoading ? renderBookList(bookList) : <Loading active={isLoading} />}
     </Container >
   )
 }
