@@ -7,7 +7,6 @@ import Header from './components/shared/header/header';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Routes />
     </div>
   );
