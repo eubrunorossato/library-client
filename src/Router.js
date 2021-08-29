@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import Home from './components/pages/home/home';
 import Books from './components/pages/books/index';
-import RegisterBook from './components/pages/books/index';
+import RegisterBook from './components/pages/registerBooks/index';
 import Header from './components/shared/header/header';
 
 export default function Routes() {
