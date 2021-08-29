@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
 import {
   Navbar,
   NavItem,
@@ -11,7 +12,7 @@ const Header = () => {
   return (
     <Navbar
       alignLinks="right"
-      brand={<a className="brand-logo" href="#">Library<Icon medium>import_contacts</Icon></a>}
+      brand={<Link to="/" className="brand-logo" href="#">Library<Icon medium>import_contacts</Icon></Link>}
       id="mobile-nav"
       options={{
         draggable: true,
@@ -40,18 +41,14 @@ const Header = () => {
           container: null,
           coverTrigger: true,
           hover: false,
-          inDuration: 150,
-          onCloseEnd: null,
-          onCloseStart: null,
-          onOpenEnd: null,
-          onOpenStart: null,
-          outDuration: 250
+          inDuration: 550,
+          outDuration: 950
         }}
-        trigger={<a href="#!">Admin{' '}<Icon right>arrow_drop_down</Icon></a>}
+        trigger={<a to="/">Admin{' '}<Icon right>arrow_drop_down</Icon></a>}
       >
-        <a href="#">
-          Books
-        </a>
+        <Link to="/books">
+          <a>Books</a>
+        </Link>
         <Divider />
       </Dropdown>
     </Navbar>
