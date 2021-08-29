@@ -50,6 +50,10 @@ const Header = () => {
           <a>Books</a>
         </Link>
         <Divider />
+        <Link to="/register-book">
+          <a>Register Book</a>
+        </Link>
+        <Divider />
       </Dropdown>
     </Navbar>
   )
