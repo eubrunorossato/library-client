@@ -61,12 +61,15 @@ const RegisterBook = () => {
   async function createBook() {
     setIsLoading(true);
     const missingFields = checkFields();
-    console.log(missingFields);
     if (missingFields.length > 0) {
       toast.error(`Missing Required fields: ${renderMissingFieldList(missingFields)}`);
     } else {
       const formData = prepareFormData();
       const { data } = await axiosInstance.post('/api/books/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      toast.success(data);
+      setTimeout(() => {
+        window.location = '/books'
+      },3000);
     }
     setIsLoading(false);
   };
