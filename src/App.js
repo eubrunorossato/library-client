@@ -1,9 +1,10 @@
 import React from 'react';
+import "react-datepicker/dist/react-datepicker.css";
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css';
 import 'material-design-icons';
+import 'react-toastify/dist/ReactToastify.css';
 import Routes from './Router';
-import Header from './components/shared/header/header';
 function App() {
   return (
     <div className="App">

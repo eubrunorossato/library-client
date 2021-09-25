@@ -8,6 +8,7 @@ const ButtonShared = (props) => {
       large
       node="a"
       waves="light"
+      onClick={props.clickAction}
     >
       {props.buttonLabel}
       <Icon right>

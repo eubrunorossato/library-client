@@ -1,0 +1,50 @@
+.formBox{
+  padding: 1rem 5rem 5rem 5rem;
+  margin-top: 2rem;
+  border-color: #b7b7b7;
+  border-radius: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+div.file-field.input-field div.btn {
+  background-color: #EE6D72
+}
+
+input.valid[type=text]:not(.browser-default){
+  border-bottom: 1px solid #ee6d72;
+  box-shadow: 0 1px 0 0 #ee6d72;
+}
+
+div.react-datepicker-wrapper{
+  margin-top: 1rem;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])#TextInput-33{
+  border-bottom: 1px solid #ee6d72;
+  box-shadow: 0 1px 0 0 #ee6d72;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label{
+  color: #ee6d72;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #ee6d72;
+  box-shadow: 0 1px 0 0 #ee6d72;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: #ee6d72;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]){
+  border-bottom: 1px solid #ee6d72;
+  box-shadow: 0 1px 0 0 #ee6d72;
+}
+
+.progress .indeterminate {
+    background-color: #ee6d72;
+}
+.progress  {
+    background-color: white;
+}

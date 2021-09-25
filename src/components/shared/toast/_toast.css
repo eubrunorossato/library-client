@@ -1,0 +1,4 @@
+.Toastify__toast-theme--colored.Toastify__toast--error {
+    color: var(--toastify-text-color-error);
+    background: #e91600;
+}

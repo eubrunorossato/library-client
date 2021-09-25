@@ -1,3 +1,22 @@
 a.btn-large{
   background-color: #EE6D72;
 }
+
+a.btn-large:hover{
+  background-color: #fc7a7e;
+}
+
+.react-datepicker-popper[data-placement^=bottom] {
+  z-index: 2;
+}
+
+div#cancel  a.btn-large{
+  width:100%;
+  background-color: transparent;
+  color: #EE6D72;
+  border: 1px solid;
+  box-shadow: 0 0 0 0;
+}
+div#send  a.btn-large{
+  width:100%
+}
