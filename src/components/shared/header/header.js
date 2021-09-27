@@ -46,10 +46,6 @@ const Header = () => {
         }}
         trigger={<a to="/">Admin{' '}<Icon right>arrow_drop_down</Icon></a>}
       >
-        <Link to="/books">
-          <a>Books</a>
-        </Link>
-        <Divider />
         <Link to="/register-book">
           <a>Register Book</a>
         </Link>
