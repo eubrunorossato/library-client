@@ -6,18 +6,21 @@ import './_registerbook.css'
 
 const RegisterBook = () => {
   const [authors, setAuthors] = useState([]);
+  const [genres, setGenres] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    async function getAuthorList() {
-      const {data} = await axiosInstance.get('/api/author/getAll');
-      setAuthors(data.authors)
+    async function getDropdownsList() {
+      const authorList = await axiosInstance.get('/api/author/getAll');
+      const genreList = await axiosInstance.get('/api/genre/getAll');
+      setGenres(genreList.data);
+      setAuthors(authorList.data.authors);
       setIsLoading(false);
     }
-    getAuthorList();
+    getDropdownsList();
   }, []);
   return (
     <>
-      { isLoading ? <Loading /> : <Form authorList={authors}/> }
+      { isLoading ? <Loading /> : <Form authorList={authors} genreList={genres}/> }
     </>
   )
 };
