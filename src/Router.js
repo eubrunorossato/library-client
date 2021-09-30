@@ -11,10 +11,12 @@ import Header from './components/shared/header/header';
 export default function Routes() {
   return (
     <Router>
-      <Header />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/" component={Books} />
-      <Route exact path="/register-book" component={RegisterBook} />
+      <Route path="/library">
+        <Header />
+        <Route exact path="/library" component={Books} />
+        <Route exact path="/library/register-book" component={RegisterBook} />
+      </Route>
     </Router>
   );
 }
