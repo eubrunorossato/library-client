@@ -1,4 +1,5 @@
 import React from 'react';
+import Store from './store/index';
 import "react-datepicker/dist/react-datepicker.css";
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css';
@@ -7,9 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Routes from './Router';
 function App() {
   return (
-    <div className="App">
+    <Store className="App">
       <Routes />
-    </div>
+    </Store>
   );
 }
 

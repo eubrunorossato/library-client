@@ -5,6 +5,7 @@ import Toast from '../../shared/toast/index';
 import { toast } from 'react-toastify';
 import { Container, Row, TextInput, Col, ProgressBar, Select } from 'react-materialize';
 import { axiosInstance } from '../../../helpers/index';
+import {renderMissingFieldList} from '../../../helpers/index';
 
 const Form  = (props) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -66,23 +67,11 @@ const Form  = (props) => {
         )
     };
 
-    const renderMissingFieldList = (missingFields) => {
-        let requiredFields = '';
-        missingFields.map((field, index) => {
-        if (missingFields[index + 1]) {
-            requiredFields += `${field}, `
-        } else {
-            requiredFields += `${field}.`
-        }
-        });
-        return requiredFields;
-    };
-
     const createBook = async () => {
         setIsLoading(true);
         const missingFields = checkFields();
         if (missingFields.length > 0) {
-        toast.error(`Missing Required fields: ${renderMissingFieldList(missingFields)}`);
+        toast.error(`Preencha os campos obrigatórios: ${renderMissingFieldList(missingFields)}`);
         } else {
         const formData = prepareFormData();
         const { data } = await axiosInstance.post('/api/books/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });

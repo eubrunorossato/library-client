@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Col, ProgressBar} from 'react-materialize'
+
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
 });
@@ -13,4 +15,24 @@ const convertBufferToImage = (buffer) => {
   return window.btoa(binary);
 }
 
-export { axiosInstance, convertBufferToImage };
+const renderMissingFieldList = (missingFields) => {
+  let requiredFields = '';
+  missingFields.map((field, index) => {
+    if (missingFields[index + 1]) {
+      requiredFields += `${field}, `
+    } else {
+      requiredFields += `${field}.`
+    }
+  });
+  return requiredFields;
+};
+
+const renderLoading = () => {
+  return (
+    <Col s={12}>
+        <ProgressBar />
+    </Col>
+  )
+};
+
+export { axiosInstance, convertBufferToImage, renderMissingFieldList, renderLoading };

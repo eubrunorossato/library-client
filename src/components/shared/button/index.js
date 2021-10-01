@@ -5,6 +5,7 @@ import './_button.css'
 const ButtonShared = (props) => {
   return (
     <Button
+      disabled={props.disabled}
       large
       node="a"
       waves="light"
