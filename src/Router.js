@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
+import { AuthAppRoutes, AuthLoginRoute } from "./components/auth/index";
 import RegisterUser from './components/pages/registerUser/index';
 import RegisterBook from './components/pages/registerBooks/index';
 import Books from './components/pages/books/index';
@@ -12,13 +13,13 @@ import Header from './components/shared/header/header';
 export default function Routes() {
   return (
     <Router>
-      <Route exact path="/login" component={Login} />
+      <AuthLoginRoute exact path="/" component={Login} />
       <Route exact path="/register-user" component={RegisterUser} />
-      <Route path="/library">
-        <Header />
-        <Route exact path="/library" component={Books} />
-        <Route exact path="/library/register-book" component={RegisterBook} />
-      </Route>
+        <Route path="/library">
+          <Header />
+          <AuthAppRoutes exact path="/library" component={Books} />
+          <AuthAppRoutes exact path="/library/register-book" component={RegisterBook} />
+        </Route>
     </Router>
   );
 }

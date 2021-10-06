@@ -11,7 +11,7 @@ const LoginPage =  () => {
 
     async function onSignIn (googleUser){
         setIsLoading(true);
-        let user = {};
+        const user = {};
         const profile = googleUser.getBasicProfile();
         user.id = profile.getId();
         user.name = profile.getName();
@@ -23,7 +23,7 @@ const LoginPage =  () => {
 
     const handleAuthToken = async (user) => {
         const { data } = await axiosInstance.post('/login', user);
-        localStorage.setItem('libraryTokenUser', data);
+        localStorage.setItem('libraryTokenUser', data.accessToken);
         const userInfo = jwt.decode(data.accessToken);
         await checkUser(data.user, userInfo);
     };
