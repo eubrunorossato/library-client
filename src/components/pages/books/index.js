@@ -39,7 +39,7 @@ const renderBookList = (bookList) => {
 const getImagesBase64 = (bookList) => {
   const base64String = [];
   bookList.map(book => {
-    base64String.push(convertBufferToImage(book.book_picture.data));
+    return base64String.push(convertBufferToImage(book.book_picture.data));
   });
   return base64String;
 };
