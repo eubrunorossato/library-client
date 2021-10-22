@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Modal from '../../shared/modal/index';
+import Scheduler from '../scheduler/index';
 import Button from '../../shared/button/index';
 import Card from '../../shared/cards/index';
 import Loading from '../../shared/loading/index'
@@ -6,7 +8,7 @@ import { axiosInstance, convertBufferToImage } from '../../../helpers';
 import { Row, Col, Container } from 'react-materialize';
 import './_books.css';
 
-const renderBookList = (bookList) => {
+const renderBookList = (bookList, setBook, setIsModalOpen) => {
   const imageBase64List = getImagesBase64(bookList);
   return bookList.map((book, index) => (
     <div key={book.id} className="box">
@@ -24,7 +26,7 @@ const renderBookList = (bookList) => {
           <div className="actionPanel">
             <p>Avaliables to book: <span>{book.avaliables}</span></p>
             <div className="buttonDivs">
-              <Button iconName="book_online" buttonLabel="Book" />
+              <Button iconName="book_online" buttonLabel="Book" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)}/>
             </div>
             <div className="buttonDivs">
               <Button iconName="volunteer_activism" buttonLabel="Donate same book" />
@@ -34,6 +36,16 @@ const renderBookList = (bookList) => {
       </Row >
     </div>
   ))
+};
+
+const hadleModal = (action, setBook, book, setIsModalOpen) => {
+  if (action){
+    setBook(book);
+    setIsModalOpen(true);
+  } else {
+    setBook({});
+    setIsModalOpen(false);
+  }
 };
 
 const getImagesBase64 = (bookList) => {
@@ -46,7 +58,14 @@ const getImagesBase64 = (bookList) => {
 
 const Books = () => {
   const [bookList, setBookList] = useState([]);
+  const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function closeModal (){
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     async function fetchBookList() {
       const { data } = await axiosInstance.get('/api/books/getAll');
@@ -57,7 +76,10 @@ const Books = () => {
   }, []);
   return (
     <Container>
-      {!isLoading ? renderBookList(bookList) : <Loading active={isLoading} />}
+      {!isLoading ? renderBookList(bookList, setBook, setIsModalOpen) : <Loading active={isLoading} />}
+      <Modal isOpen={isModalOpen} closeModal={closeModal} book={book}>
+        <Scheduler />
+      </Modal>
     </Container >
   )
 }
