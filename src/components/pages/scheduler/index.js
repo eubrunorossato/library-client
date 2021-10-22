@@ -18,7 +18,7 @@ const Scheduler = () => {
                 l={3}
             >
                 <DatePicker
-                    placeholderText="Release Date"
+                    placeholderText="Pick Date"
                     showYearDropdown={true}
                     dateFormat="dd/MM/yyyy"
                 />
