@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import jwt from 'jsonwebtoken';
+import Avatar from 'react-avatar';
+import { Context } from '../../../store/index';
 import { Link } from "react-router-dom";
 import {
   Navbar,
@@ -6,9 +9,22 @@ import {
   Icon,
   Dropdown,
   Divider,
-} from 'react-materialize'
-import './_header.css'
+} from 'react-materialize';
+import './_header.css';
+
+
 const Header = () => {
+  const getUserData = () => {
+    const userToken = localStorage.getItem('libraryTokenUser');
+    return jwt.decode(userToken);
+  };
+
+  const [userInfo, setUserInfo] = useContext(Context);
+  useEffect(() => {
+    const userData = getUserData();
+    setUserInfo(userData);
+  }, []);
+
   return (
     <Navbar
       alignLinks="right"
@@ -26,11 +42,6 @@ const Header = () => {
         preventScrolling: true
       }}
     >
-      <NavItem href="get-started.html">
-        <Icon>
-          search
-        </Icon>
-      </NavItem>
       <Dropdown
         id="Dropdown_14"
         options={{
@@ -51,6 +62,7 @@ const Header = () => {
         </Link>
         <Divider />
       </Dropdown>
+      <Avatar src={userInfo.photoUrl} size={45} round={true} id='avatar'/>
     </Navbar>
   )
 };

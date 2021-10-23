@@ -9,7 +9,7 @@ const ModalShared = (props) => {
             ]}
             bottomSheet={false}
             fixedFooter={false}
-            header={props.book.name}
+            header={`Scheduler - ${props.book.name}`}
             id="Modal-10"
             open={props.isOpen}
             options={{

@@ -6,7 +6,7 @@ const Scheduler = () => {
     return (
         <Row>
             <Col
-                l={3}
+                l={4}
             >
                 <TextInput
                     id="TextInput-31"
@@ -15,14 +15,22 @@ const Scheduler = () => {
                 <span className='explanation'>*First and Second name</span>
             </Col>
             <Col
-                l={3}
+                l={4}
             >
                 <DatePicker
                     placeholderText="Pick Date"
                     showYearDropdown={true}
                     dateFormat="dd/MM/yyyy"
                 />
-                <span className='explanation'>*First and Second name</span>
+            </Col>
+            <Col
+                l={4}
+            >
+                <DatePicker
+                    placeholderText="Return Date"
+                    showYearDropdown={true}
+                    dateFormat="dd/MM/yyyy"
+                />
             </Col>
         </Row>
     )
