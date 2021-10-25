@@ -8,3 +8,22 @@ div.input-field {
     opacity: 0.6;
     color: red;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid #ee6d72;
+    box-shadow: 0 1px 0 0 #ee6d72;
+}
+
+input[type=number]:not(.browser-default):focus:not([readonly])+label{
+    color: #ee6d72;
+}

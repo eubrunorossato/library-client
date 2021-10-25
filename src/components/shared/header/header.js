@@ -5,7 +5,6 @@ import { Context } from '../../../store/index';
 import { Link } from "react-router-dom";
 import {
   Navbar,
-  NavItem,
   Icon,
   Dropdown,
   Divider,

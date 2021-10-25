@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../../shared/modal/index';
 import Scheduler from '../scheduler/index';
 import Button from '../../shared/button/index';
+import Toast from '../../shared/toast/index';
 import Card from '../../shared/cards/index';
 import Loading from '../../shared/loading/index'
 import { axiosInstance, convertBufferToImage } from '../../../helpers';
@@ -76,6 +77,7 @@ const Books = () => {
   }, []);
   return (
     <Container>
+      <Toast />
       {!isLoading ? renderBookList(bookList, setBook, setIsModalOpen) : <Loading active={isLoading} />}
       <Modal isOpen={isModalOpen} closeModal={closeModal} book={book}>
         <Scheduler />
