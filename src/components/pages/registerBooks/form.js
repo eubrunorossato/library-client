@@ -5,9 +5,9 @@ import Toast from '../../shared/toast/index';
 import { toast } from 'react-toastify';
 import { Container, Row, TextInput, Col, ProgressBar, Select } from 'react-materialize';
 import { axiosInstance } from '../../../helpers/index';
-import {renderMissingFieldList} from '../../../helpers/index';
+import { renderMissingFieldList } from '../../../helpers/index';
 
-const Form  = (props) => {
+const Form = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [bookObj, setBookObj] = useState({ name: '', author_id: '', genre_id: '', realeased_date: '', resume: '', book_picture: '' });
 
@@ -17,7 +17,7 @@ const Form  = (props) => {
     };
 
     const renderAuthorOptions = () => {
-        return props.authorList.map(author =>  {
+        return props.authorList.map(author => {
             return (
                 <option key={author.id} value={author.id}>
                     {author.name}
@@ -27,7 +27,7 @@ const Form  = (props) => {
     };
 
     const renderGenresOptions = () => {
-        return props.genreList.map(genre =>  {
+        return props.genreList.map(genre => {
             return (
                 <option key={genre.id} value={genre.id}>
                     {genre.name}
@@ -39,31 +39,31 @@ const Form  = (props) => {
     const checkFields = () => {
         const missingFields = [];
         if (bookObj.name === '') {
-        missingFields.push('Book Name');
+            missingFields.push('Book Name');
         }
         if (bookObj.author_id === '') {
-        missingFields.push('Author');
+            missingFields.push('Author');
         }
         if (bookObj.genre_id === '') {
-        missingFields.push('Genre');
+            missingFields.push('Genre');
         }
         if (bookObj.realeased_date === '') {
-        missingFields.push('Release Date');
+            missingFields.push('Release Date');
         }
         if (bookObj.resume === '') {
-        missingFields.push('Resume');
+            missingFields.push('Resume');
         }
         if (bookObj.book_picture === '') {
-        missingFields.push('Book Picture');
+            missingFields.push('Book Picture');
         }
         return missingFields;
     };
 
     const renderLoading = () => {
         return (
-        <Col s={12}>
-            <ProgressBar />
-        </Col>
+            <Col s={12}>
+                <ProgressBar />
+            </Col>
         )
     };
 
@@ -71,14 +71,14 @@ const Form  = (props) => {
         setIsLoading(true);
         const missingFields = checkFields();
         if (missingFields.length > 0) {
-        toast.error(`Preencha os campos obrigatórios: ${renderMissingFieldList(missingFields)}`);
+            toast.error(`Preencha os campos obrigatórios: ${renderMissingFieldList(missingFields)}`);
         } else {
-        const formData = prepareFormData();
-        const { data } = await axiosInstance.post('/api/books/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-        toast.success(data);
-        setTimeout(() => {
-            window.location = '/'
-        }, 3000);
+            const formData = prepareFormData();
+            const { data } = await axiosInstance.post('/api/books/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            toast.success(data);
+            setTimeout(() => {
+                window.location = '/'
+            }, 3000);
         }
         setIsLoading(false);
     };
@@ -96,141 +96,141 @@ const Form  = (props) => {
 
     return (
         <Container>
-        <Toast />
-        <div className="formBox">
-            <h1 style={{ color: "#EE6D72" }}>New Book</h1>
-            <Row>
-                <Col l={6}>
-                    <TextInput
-                    l={12}
-                    value={bookObj.name}
-                    onChange={event => setFormBook('name', event.target.value)}
-                    id="TextInput-1"
-                    label="Book Name"
-                    />
-                </Col>
-                <Col l={6}>
-                    <TextInput
-                    value={bookObj.resume}
-                    onChange={event => setFormBook('resume', event.target.value)}
-                    l={12}
-                    id="TextInput-4"
-                    label="Book Resume"
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <Col l={6}>
-                    <Select
-                    id="Select-41"
-                    onChange={event => setFormBook('author_id', event.target.value)}
-                    multiple={false}
-                    options={{
-                        classes: '',
-                        dropdownOptions: {
-                        alignment: 'left',
-                        autoTrigger: true,
-                        closeOnClick: true,
-                        constrainWidth: true,
-                        coverTrigger: true,
-                        hover: false,
-                        inDuration: 150,
-                        onCloseEnd: null,
-                        onCloseStart: null,
-                        onOpenEnd: null,
-                        onOpenStart: null,
-                        outDuration: 250
-                        }
-                    }}
-                    value=""
-                    >
-                        <option
-                            disabled
+            <Toast />
+            <div className="formBox">
+                <h1 style={{ color: "#EE6D72" }}>New Book</h1>
+                <Row>
+                    <Col l={6}>
+                        <TextInput
+                            l={12}
+                            value={bookObj.name}
+                            onChange={event => setFormBook('name', event.target.value)}
+                            id="TextInput-1"
+                            label="Book Name"
+                        />
+                    </Col>
+                    <Col l={6}>
+                        <TextInput
+                            value={bookObj.resume}
+                            onChange={event => setFormBook('resume', event.target.value)}
+                            l={12}
+                            id="TextInput-4"
+                            label="Book Resume"
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col l={6}>
+                        <Select
+                            id="Select-41"
+                            onChange={event => setFormBook('author_id', event.target.value)}
+                            multiple={false}
+                            options={{
+                                classes: '',
+                                dropdownOptions: {
+                                    alignment: 'left',
+                                    autoTrigger: true,
+                                    closeOnClick: true,
+                                    constrainWidth: true,
+                                    coverTrigger: true,
+                                    hover: false,
+                                    inDuration: 150,
+                                    onCloseEnd: null,
+                                    onCloseStart: null,
+                                    onOpenEnd: null,
+                                    onOpenStart: null,
+                                    outDuration: 250
+                                }
+                            }}
                             value=""
                         >
-                            Auhtor
-                        </option>
+                            <option
+                                disabled
+                                value=""
+                            >
+                                Auhtor
+                            </option>
 
-                        {renderAuthorOptions()}
-                    </Select>
-                </Col>
-                <Col l={6}>
-                <Select
-                    id="Select-41"
-                    multiple={false}
-                    onChange={event => setFormBook('genre_id', event.target.value)}
-                    options={{
-                        classes: '',
-                        dropdownOptions: {
-                        alignment: 'left',
-                        autoTrigger: true,
-                        closeOnClick: true,
-                        constrainWidth: true,
-                        coverTrigger: true,
-                        hover: false,
-                        inDuration: 150,
-                        onCloseEnd: null,
-                        onCloseStart: null,
-                        onOpenEnd: null,
-                        onOpenStart: null,
-                        outDuration: 250
-                        }
-                    }}
-                    value=""
-                    >
-                        <option
-                            disabled
+                            {renderAuthorOptions()}
+                        </Select>
+                    </Col>
+                    <Col l={6}>
+                        <Select
+                            id="Select-41"
+                            multiple={false}
+                            onChange={event => setFormBook('genre_id', event.target.value)}
+                            options={{
+                                classes: '',
+                                dropdownOptions: {
+                                    alignment: 'left',
+                                    autoTrigger: true,
+                                    closeOnClick: true,
+                                    constrainWidth: true,
+                                    coverTrigger: true,
+                                    hover: false,
+                                    inDuration: 150,
+                                    onCloseEnd: null,
+                                    onCloseStart: null,
+                                    onOpenEnd: null,
+                                    onOpenStart: null,
+                                    outDuration: 250
+                                }
+                            }}
                             value=""
                         >
-                            Genre
-                        </option>
+                            <option
+                                disabled
+                                value=""
+                            >
+                                Genre
+                            </option>
 
-                        {renderGenresOptions()}
-                    </Select>
-                </Col>
-            </Row>
-            <Row>
-                <Col l={6}>
-                    <DatePicker
-                    selected={bookObj.realeased_date}
-                    onChange={(date) => setFormBook('realeased_date', date)}
-                    placeholderText="Release Date"
-                    showYearDropdown={true}
-                    dateFormat="dd/MM/yyyy"
-                    />
-                </Col>
-                <Col l={6}>
-                    <div className="file-field input-field">
-                    <div className="btn">
-                        <span>File</span>
-                        <input type="file" onChange={event => setFormBook('book_picture', event.target.files[0])} />
-                    </div>
-                    <div className="file-path-wrapper">
-                        <input className="file-path validate" type="text" />
-                    </div>
-                    </div>
-                </Col>
-            </Row>
-            <Row>
-                <Col
-                    l={6}>
-                    <div id="cancel">
-                    <Button buttonLabel="Cancelar" iconName="close" />
-                    </div>
-                </Col>
-                <Col
-                    l={6}>
-                    <div id="send">
-                    <Button buttonLabel="Criar Livro" iconName="send" clickAction={createBook} />
-                    </div>
-                </Col>
-            </Row>
-            {
-            isLoading ? renderLoading() : null
-            }
-        </div>
-    </Container>
-  )
+                            {renderGenresOptions()}
+                        </Select>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col l={6}>
+                        <DatePicker
+                            selected={bookObj.realeased_date}
+                            onChange={(date) => setFormBook('realeased_date', date)}
+                            placeholderText="Release Date"
+                            showYearDropdown={true}
+                            dateFormat="dd/MM/yyyy"
+                        />
+                    </Col>
+                    <Col l={6}>
+                        <div className="file-field input-field">
+                            <div className="btn">
+                                <span>File</span>
+                                <input type="file" onChange={event => setFormBook('book_picture', event.target.files[0])} />
+                            </div>
+                            <div className="file-path-wrapper">
+                                <input className="file-path validate" type="text" />
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col
+                        l={6}>
+                        <div id="cancel">
+                            <Button buttonLabel="Cancelar" iconName="close" />
+                        </div>
+                    </Col>
+                    <Col
+                        l={6}>
+                        <div id="send">
+                            <Button buttonLabel="Criar Livro" iconName="send" clickAction={createBook} />
+                        </div>
+                    </Col>
+                </Row>
+                {
+                    isLoading ? renderLoading() : null
+                }
+            </div>
+        </Container>
+    )
 };
 
 export default Form;
