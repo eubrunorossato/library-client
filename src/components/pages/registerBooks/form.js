@@ -13,7 +13,6 @@ const Form = (props) => {
 
     const setFormBook = (variable, value) => {
         setBookObj({ ...bookObj, [variable]: value });
-        console.log(bookObj);
     };
 
     const renderAuthorOptions = () => {
