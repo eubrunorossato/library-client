@@ -14,7 +14,6 @@ const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
         if (token) {
             const isValidToken = checkToken(token);
             if (!isValidToken) {
-                console.log('expirou');
                 const { id, name, photoUrl, email } = jwt.decode(token);
                 const newToken = jwt.sign({ id, name, photoUrl, email }, process.env.REACT_APP_TOKEN_KEY, {
                     expiresIn: '10s'
