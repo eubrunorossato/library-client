@@ -14,7 +14,7 @@ export default function Routes() {
   return (
     <Router>
       <AuthLoginRoute exact path="/" component={Login} />
-      <Route exact path="/register-user" component={RegisterUser} />
+      <AuthLoginRoute exact path="/register-user" component={RegisterUser} />
       <Route path="/library">
         <Header />
         <AuthAppRoutes exact path="/library" component={Books} />
