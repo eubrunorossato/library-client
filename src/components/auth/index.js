@@ -1,6 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { Route, Redirect, useLocation } from 'react-router-dom';
 
+const checkToken = (token) => {
+    return jwt.verify(token, process.env.REACT_APP_TOKEN_KEY, (err, decode) => {
+        if (err) return false;
+        else return decode;
+    })
+};
+
 const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
     const location = useLocation()
     return <Route {...rest} render={(props) => {
@@ -9,6 +16,15 @@ const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
         if (token) {
             if (routePath === '/login') {
                 return <Redirect to={{ pathname: '/library', state: { from: props.location } }} />
+            }
+            const isValidToken = checkToken(token);
+            if (!isValidToken) {
+                console.log('expirou');
+                const { id, name, photoUrl, email } = jwt.decode(token);
+                const newToken = jwt.sign({ id, name, photoUrl, email }, process.env.REACT_APP_TOKEN_KEY, {
+                    expiresIn: '10s'
+                });
+                localStorage.setItem('libraryTokenUser', newToken)
             }
             const user = jwt.decode(token);
             const userKeys = Object.keys(user);
@@ -51,5 +67,6 @@ const AuthLoginRoute = ({ isAuth, component: Component, ...rest }) => {
         }
     }} />
 };
+
 
 export { AuthAppRoutes, AuthLoginRoute };

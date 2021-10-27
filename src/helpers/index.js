@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { Col, ProgressBar} from 'react-materialize'
+import { Col, ProgressBar } from 'react-materialize';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
+  headers: { authorization: localStorage.getItem('libraryTokenUser') }
 });
 
 const convertBufferToImage = (buffer) => {
@@ -30,7 +31,7 @@ const renderMissingFieldList = (missingFields) => {
 const renderLoading = () => {
   return (
     <Col s={12}>
-        <ProgressBar />
+      <ProgressBar />
     </Col>
   )
 };

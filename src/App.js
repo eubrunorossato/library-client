@@ -6,6 +6,7 @@ import 'materialize-css';
 import 'material-design-icons';
 import 'react-toastify/dist/ReactToastify.css';
 import Routes from './Router';
+
 function App() {
   return (
     <Store className="App">

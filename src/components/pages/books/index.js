@@ -27,7 +27,7 @@ const renderBookList = (bookList, setBook, setIsModalOpen) => {
           <div className="actionPanel">
             <p>Avaliables to book: <span>{book.avaliables}</span></p>
             <div className="buttonDivs">
-              <Button iconName="book_online" buttonLabel="Book" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)}/>
+              <Button iconName="book_online" buttonLabel="Book" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)} />
             </div>
             <div className="buttonDivs">
               <Button iconName="volunteer_activism" buttonLabel="Donate same book" />
@@ -40,7 +40,7 @@ const renderBookList = (bookList, setBook, setIsModalOpen) => {
 };
 
 const hadleModal = (action, setBook, book, setIsModalOpen) => {
-  if (action){
+  if (action) {
     setBook(book);
     setIsModalOpen(true);
   } else {
@@ -63,7 +63,7 @@ const Books = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function closeModal (){
+  function closeModal() {
     setIsModalOpen(false);
   };
 

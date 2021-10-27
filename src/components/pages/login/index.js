@@ -22,19 +22,22 @@ const LoginPage =  () => {
     };
 
     const handleAuthToken = async (user) => {
-        const { data } = await axiosInstance.post('/login', user);
-        localStorage.setItem('libraryTokenUser', data.accessToken);
-        const userInfo = jwt.decode(data.accessToken);
-        await checkUser(data.user, userInfo);
+        const userToken = jwt.sign(user, process.env.REACT_APP_TOKEN_KEY, {
+            expiresIn: '10s'
+        });
+        localStorage.setItem('libraryTokenUser', userToken);
+        const userInfo = jwt.decode(userToken);
+        const { data } = await axiosInstance.get(`/check/register/${userInfo.email}`);
+        checkUser(data.user, userInfo);
     };
 
-    const checkUser = async (user, userInfo) => {
+    const checkUser = (user, userInfo) => {
         if (user === null){
             userInfo.nickname = '';
             userInfo.celphone = '';
             history.push('/register-user', userInfo);
         } else {
-            history.push('/library');
+            window.location.href = '/library'
         }
     };
 
