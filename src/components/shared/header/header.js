@@ -13,16 +13,18 @@ import './_header.css';
 
 
 const Header = () => {
+  const [userInfo, setUserInfo] = useContext(Context);
+
+  useEffect(() => {
+    const userData = getUserData();
+    setUserInfo(userData);
+    console.log('setado');
+  }, []);
+
   const getUserData = () => {
     const userToken = localStorage.getItem('libraryTokenUser');
     return jwt.decode(userToken);
   };
-
-  const [userInfo, setUserInfo] = useContext(Context);
-  useEffect(() => {
-    const userData = getUserData();
-    setUserInfo(userData);
-  }, []);
 
   return (
     <Navbar
@@ -61,7 +63,7 @@ const Header = () => {
         </Link>
         <Divider />
       </Dropdown>
-      <Avatar src={userInfo.photoUrl} size={45} round={true} id='avatar'/>
+      <Avatar src={userInfo.photoUrl} size={45} round={true} id='avatar' />
     </Navbar>
   )
 };

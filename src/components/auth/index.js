@@ -16,7 +16,7 @@ const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
             if (!isValidToken) {
                 const { id, name, photoUrl, email } = jwt.decode(token);
                 const newToken = jwt.sign({ id, name, photoUrl, email }, process.env.REACT_APP_TOKEN_KEY, {
-                    expiresIn: '10s'
+                    expiresIn: '5m'
                 });
                 localStorage.setItem('libraryTokenUser', newToken)
                 window.location.reload();

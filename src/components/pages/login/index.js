@@ -28,7 +28,8 @@ const LoginPage =  () => {
         localStorage.setItem('libraryTokenUser', userToken);
         const userInfo = jwt.decode(userToken);
         const { data } = await axiosInstance.get(`/check/register/${userInfo.email}`);
-        checkUser(data.user, userInfo);
+        console.log(data);
+        checkUser(data.userRegister, userInfo);
     };
 
     const checkUser = (user, userInfo) => {

@@ -79,9 +79,11 @@ const Books = () => {
     <Container>
       <Toast />
       {!isLoading ? renderBookList(bookList, setBook, setIsModalOpen) : <Loading active={isLoading} />}
+      {isModalOpen ? 
       <Modal isOpen={isModalOpen} closeModal={closeModal} book={book}>
-        <Scheduler />
-      </Modal>
+        <Scheduler book_id={book.id}/>
+      </Modal> :
+      null }
     </Container >
   )
 }
