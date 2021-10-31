@@ -1,0 +1,8 @@
+div.box table{
+    width: 98%;
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+table.highlight>tbody>tr:hover {
+    background-color: #ffebec;
+}

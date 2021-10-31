@@ -6,10 +6,11 @@ import Toast from '../../shared/toast/index';
 import Card from '../../shared/cards/index';
 import Loading from '../../shared/loading/index'
 import { axiosInstance, convertBufferToImage } from '../../../helpers';
+import { useHistory } from 'react-router-dom'
 import { Row, Col, Container } from 'react-materialize';
 import './_books.css';
 
-const renderBookList = (bookList, setBook, setIsModalOpen) => {
+const renderBookList = (bookList, setBook, setIsModalOpen, history) => {
   const imageBase64List = getImagesBase64(bookList);
   return bookList.map((book, index) => (
     <div key={book.id} className="box">
@@ -26,11 +27,17 @@ const renderBookList = (bookList, setBook, setIsModalOpen) => {
         >
           <div className="actionPanel">
             <p>Avaliables to book: <span>{book.avaliables}</span></p>
+            {
+              book.avaliables !== 0 ?
+                <div className="buttonDivs">
+                  <Button iconName="book_online" buttonLabel="Reservar" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)} />
+                </div> :
+                <div className="buttonDivs">
+                  <Button iconName="book_online" buttonLabel="Entrar na fila" clickAction={() => history.push('/library/request-queue')} />
+                </div>
+            }
             <div className="buttonDivs">
-              <Button iconName="book_online" buttonLabel="Book" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)} />
-            </div>
-            <div className="buttonDivs">
-              <Button iconName="volunteer_activism" buttonLabel="Donate same book" />
+              <Button iconName="volunteer_activism" buttonLabel="Doar" />
             </div>
           </div>
         </Col>
@@ -62,6 +69,7 @@ const Books = () => {
   const [book, setBook] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const history = useHistory();
 
   function closeModal() {
     setIsModalOpen(false);
@@ -78,12 +86,12 @@ const Books = () => {
   return (
     <Container>
       <Toast />
-      {!isLoading ? renderBookList(bookList, setBook, setIsModalOpen) : <Loading active={isLoading} />}
-      {isModalOpen ? 
-      <Modal isOpen={isModalOpen} closeModal={closeModal} book={book}>
-        <Scheduler book_id={book.id}/>
-      </Modal> :
-      null }
+      {!isLoading ? renderBookList(bookList, setBook, setIsModalOpen, history) : <Loading active={isLoading} />}
+      {isModalOpen ?
+        <Modal isOpen={isModalOpen} closeModal={closeModal} book={book}>
+          <Scheduler book_id={book.id} />
+        </Modal> :
+        null}
     </Container >
   )
 }
