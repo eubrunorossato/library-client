@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { useEffect, useState } from 'react';
 import { Container, Table } from 'react-materialize';
 import { axiosInstance } from '../../../helpers/index'
