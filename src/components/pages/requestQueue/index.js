@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Container, Table } from 'react-materialize';
+import { useLocation } from "react-router-dom";
 import { axiosInstance } from '../../../helpers/index'
 import './_requestQueue.css'
 
-const RequestQueue = () => {
+const RequestQueue = (props) => {
     const [requests, setRequests] = useState([]);
+    const location = useLocation();
+    console.log(location);
     useEffect(() => {
         async function getRequestList() {
-            const { data } = await axiosInstance('/api/request/getAll');
+            const { data } = await axiosInstance(`/api/request/getAllById/${location.state}`);
             setRequests(data)
         }
         getRequestList();
