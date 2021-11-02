@@ -33,7 +33,7 @@ const renderBookList = (bookList, setBook, setIsModalOpen, history) => {
                   <Button iconName="book_online" buttonLabel="Reservar" clickAction={() => hadleModal(true, setBook, book, setIsModalOpen)} />
                 </div> :
                 <div className="buttonDivs">
-                  <Button iconName="book_online" buttonLabel="Entrar na fila" clickAction={() => history.push('/library/request-queue')} />
+                  <Button iconName="book_online" buttonLabel="Ver fila de empréstimos" clickAction={() => history.push('/library/request-queue')} />
                 </div>
             }
             <div className="buttonDivs">

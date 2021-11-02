@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import Avatar from 'react-avatar';
 import { Context } from '../../../store/index';
 import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
 import {
   Navbar,
   Icon,
@@ -18,11 +19,10 @@ const Header = () => {
   useEffect(() => {
     const userData = getUserData();
     setUserInfo(userData);
-    console.log('setado');
   }, []);
 
   const getUserData = () => {
-    const userToken = localStorage.getItem('libraryTokenUser');
+    const userToken = Cookies.get('libraryTokenUser');
     return jwt.decode(userToken);
   };
 

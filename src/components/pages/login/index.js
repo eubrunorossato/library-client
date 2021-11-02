@@ -3,6 +3,7 @@ import { axiosInstance } from '../../../helpers/index';
 import { Container, TextInput, ProgressBar, Col } from "react-materialize";
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 import GoogleLogin from "react-google-login";
 import './_login.css'
 const LoginPage =  () => {
@@ -25,10 +26,9 @@ const LoginPage =  () => {
         const userToken = jwt.sign(user, process.env.REACT_APP_TOKEN_KEY, {
             expiresIn: '10s'
         });
-        localStorage.setItem('libraryTokenUser', userToken);
+        Cookies.set('libraryTokenUser', userToken);
         const userInfo = jwt.decode(userToken);
         const { data } = await axiosInstance.get(`/check/register/${userInfo.email}`);
-        console.log(data);
         checkUser(data.userRegister, userInfo);
     };
 

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Route, Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const checkToken = (token) => {
     return jwt.verify(token, process.env.REACT_APP_TOKEN_KEY, (err, decode) => {
@@ -10,7 +11,7 @@ const checkToken = (token) => {
 
 const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
     return <Route {...rest} render={(props) => {
-        const token = localStorage.getItem('libraryTokenUser');
+        const token = Cookies.get('libraryTokenUser');
         if (token) {
             const isValidToken = checkToken(token);
             if (!isValidToken) {
@@ -18,7 +19,7 @@ const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
                 const newToken = jwt.sign({ id, name, photoUrl, email }, process.env.REACT_APP_TOKEN_KEY, {
                     expiresIn: '5m'
                 });
-                localStorage.setItem('libraryTokenUser', newToken)
+                Cookies.set('libraryTokenUser', newToken)
                 window.location.reload();
             }
             const user = jwt.decode(token);
@@ -42,7 +43,7 @@ const AuthAppRoutes = ({ isAuth, component: Component, ...rest }) => {
 
 const AuthLoginRoute = ({ isAuth, component: Component, ...rest }) => {
     return <Route {...rest} render={(props) => {
-        const token = localStorage.getItem('libraryTokenUser');
+        const token = Cookies.get('libraryTokenUser');
         if (token) {
             const user = jwt.decode(token);
             const userKeys = Object.keys(user);

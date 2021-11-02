@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { Col, ProgressBar } from 'react-materialize';
+import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-  headers: { authorization: localStorage.getItem('libraryTokenUser') }
+  headers: { authorization: Cookies.get('libraryTokenUser') }
 });
 
 const convertBufferToImage = (buffer) => {

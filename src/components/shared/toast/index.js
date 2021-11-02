@@ -4,7 +4,7 @@ import './_toast.css'
 const Toast = (props) => {
   return (
     <ToastContainer
-      autoClose={3000}
+      autoClose={5000}
       closeOnClick
       theme='colored'
     />

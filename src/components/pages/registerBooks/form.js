@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import DatePicker from "react-datepicker";
 import Button from "../../shared/button/index";
 import Toast from '../../shared/toast/index';
 import { toast } from 'react-toastify';
-import { Container, Row, TextInput, Col, ProgressBar, Select } from 'react-materialize';
+import { Container, Row, TextInput, Col, ProgressBar, Select, Textarea, Icon } from 'react-materialize';
 import { axiosInstance } from '../../../helpers/index';
 import { renderMissingFieldList } from '../../../helpers/index';
 
 const Form = (props) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [bookObj, setBookObj] = useState({ name: '', author_id: '', genre_id: '', realeased_date: '', resume: '', book_picture: '' });
+    const [bookObj, setBookObj] = useState({ name: '', author_id: '', genre_id: '', resume: '', book_picture: '' });
 
     const setFormBook = (variable, value) => {
         setBookObj({ ...bookObj, [variable]: value });
@@ -87,7 +86,6 @@ const Form = (props) => {
         formData.append('author_id', bookObj.author_id);
         formData.append('name', bookObj.name);
         formData.append('genre_id', bookObj.genre_id);
-        formData.append('realeased_date', bookObj.realeased_date);
         formData.append('resume', bookObj.resume);
         formData.append('book_picture', bookObj.book_picture, bookObj.book_picture.name);
         return formData;
@@ -97,24 +95,15 @@ const Form = (props) => {
         <Container>
             <Toast />
             <div className="formBox">
-                <h1 style={{ color: "#EE6D72" }}>New Book</h1>
+                <h1 style={{ color: "#EE6D72" }}>Criar Livro</h1>
                 <Row>
-                    <Col l={6}>
+                    <Col l={12}>
                         <TextInput
                             l={12}
                             value={bookObj.name}
                             onChange={event => setFormBook('name', event.target.value)}
                             id="TextInput-1"
-                            label="Book Name"
-                        />
-                    </Col>
-                    <Col l={6}>
-                        <TextInput
-                            value={bookObj.resume}
-                            onChange={event => setFormBook('resume', event.target.value)}
-                            l={12}
-                            id="TextInput-4"
-                            label="Book Resume"
+                            label="Titulo"
                         />
                     </Col>
                 </Row>
@@ -147,7 +136,7 @@ const Form = (props) => {
                                 disabled
                                 value=""
                             >
-                                Auhtor
+                                Autor
                             </option>
 
                             {renderAuthorOptions()}
@@ -181,7 +170,7 @@ const Form = (props) => {
                                 disabled
                                 value=""
                             >
-                                Genre
+                                Genero
                             </option>
 
                             {renderGenresOptions()}
@@ -190,18 +179,21 @@ const Form = (props) => {
                 </Row>
                 <Row>
                     <Col l={6}>
-                        <DatePicker
-                            selected={bookObj.realeased_date}
-                            onChange={(date) => setFormBook('realeased_date', date)}
-                            placeholderText="Release Date"
-                            showYearDropdown={true}
-                            dateFormat="dd/MM/yyyy"
+                        <Textarea
+                            label="Sinópse"
+                            id="Textarea-33"
+                            onChange={event => setFormBook('resume', event.target.value)}
+                            icon={<Icon>mode_edit</Icon>}
+                            l={12}
+                            m={12}
+                            s={12}
+                            xl={12}
                         />
                     </Col>
                     <Col l={6}>
                         <div className="file-field input-field">
                             <div className="btn">
-                                <span>File</span>
+                                <span>Foto</span>
                                 <input type="file" onChange={event => setFormBook('book_picture', event.target.files[0])} />
                             </div>
                             <div className="file-path-wrapper">

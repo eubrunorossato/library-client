@@ -1,60 +1,61 @@
+import { render } from '@testing-library/react';
+import { useEffect, useState } from 'react';
 import { Container, Table } from 'react-materialize';
+import { axiosInstance } from '../../../helpers/index'
 import './_requestQueue.css'
 
 const RequestQueue = () => {
+    const [requests, setRequests] = useState([]);
+    useEffect(() => {
+        async function getRequestList() {
+            const { data } = await axiosInstance('/api/request/getAll');
+            setRequests(data)
+        }
+        getRequestList();
+    }, []);
+
+    const renderTable = () => {
+        return (
+            <Table centered={true} responsive={true} hoverable={true}>
+                <thead>
+                    <tr>
+                        <th data-field="id">
+                            Nome
+                        </th>
+                        <th data-field="name">
+                            Data de retirada
+                        </th>
+                        <th data-field="price">
+                            Data de Devolução
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        requests.map(request => {
+                            return (
+                                <tr>
+                                    <td>
+                                        {request['User.name']}
+                                    </td>
+                                    <td>
+                                        {request.pick_date}
+                                    </td>
+                                    <td>
+                                        {request.return_date}
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </Table>
+        )
+    }
     return (
         <Container>
             <div className="box">
-                <Table hoverable={true}  centered={true} responsive={true}>
-                    <thead>
-                        <tr>
-                            <th data-field="id">
-                                Nome
-                            </th>
-                            <th data-field="name">
-                                Data de Retirada
-                            </th>
-                            <th data-field="price">
-                                Data de Retorno
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                Alvin
-                            </td>
-                            <td>
-                                Eclair
-                            </td>
-                            <td>
-                                $0.87
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Alan
-                            </td>
-                            <td>
-                                Jellybean
-                            </td>
-                            <td>
-                                $3.76
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Jonathan
-                            </td>
-                            <td>
-                                Lollipop
-                            </td>
-                            <td>
-                                $7.00
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
+                {renderTable()}
             </div>
         </Container>
     )

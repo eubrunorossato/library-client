@@ -5,48 +5,49 @@ import Button from '../../shared/button/index';
 import DatePicker from "react-datepicker";
 import { Context } from '../../../store/index';
 import './_scheduler.css'
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 
 const Scheduler = (props) => {
-    const [schedulerData, setSchedulerData] = useState({ celphone: '', pick_date: '', return_date: '', book_id: props.book_id });
     const [userInfo, setUserInfo] = useContext(Context);
+    const [schedulerData, setSchedulerData] = useState({ email: userInfo.email, pick_date: '', return_date: '', book_id: props.book_id });
     let errorList = [];
 
-    useEffect(() => {
-        async function getUserInfo() {
-            const { data } = await axiosInstance.get(`/api/user/getUserByEmail/${userInfo.email}`);
-            setSchedulerData({ ...schedulerData, celphone: data.userRegister.celphone })
-        }
-        getUserInfo();
-    }, []);
-
     const setSchedulerObj = (value, key) => {
-        setSchedulerData({ ...schedulerData, [key]: value });
-    };
-
-    const checkDatesDifference = () => {
-        const diffTime = schedulerData.returnDate - schedulerData.pickDate;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays <= 0 || diffDays > 30) {
-            errorList.push('You should pick a book for at minimun a week, and maximun a month');
+        const warnList = [];
+        if (key !== 'email') {
+            const weekDay = value.getDay();
+            if (weekDay !== 0) {
+                warnList.push('Dias de retirada e devolução só podem ocorrer aos domingos');
+            }
+        }
+        if (key === 'pick_date') {
+            const today = Date.now();
+            if (value < today) {
+                warnList.push('Selecionar uma data de retirada igual ou posterior a atual.');
+            }
+        }
+        if (warnList.length > 0) {
+            warnList.forEach(el => {
+                toast.warn(el);
+            });
+        } else {
+            setSchedulerData({ ...schedulerData, [key]: value });
         }
     };
 
-    const checkPhoneNumber = () => {
-        if (
-            schedulerData.celphone[2] !== '9' ||
-            schedulerData.celphone.length !== 11
-        ) {
-            errorList.push('phone number shoub be in this model [DDD]99999-9999');
+    const checkPeriod = () => {
+        const diffTime = Math.abs(schedulerData.return_date - schedulerData.pick_date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays > 30) {
+            errorList.push('Tempo máximo de empréstimo é 30 dias.')
         }
     };
 
     const createRequest = async () => {
-        checkDatesDifference();
-        checkPhoneNumber();
+        checkPeriod();
         if (errorList.length > 0) {
             errorList.forEach((el) => {
-                toast.error(el);
+                toast.warn(el);
             });
             errorList = [];
         } else {
@@ -55,10 +56,10 @@ const Scheduler = (props) => {
             if (status !== 200) {
                 toast.error(data.message);
             } else {
-                toast.success('Livro reservado com sucesso. Verifique o SMS enviado a seu telefone com o código de retirada do Livro.');
+                toast.success('Livro reservado com sucesso. Verifique o seu email com o código de retirada do Livro.');
                 setTimeout(() => {
                     window.location.reload();
-                }, 3000)
+                }, 5000)
             }
         }
     };
@@ -71,12 +72,10 @@ const Scheduler = (props) => {
                 >
                     <TextInput
                         id="TextInput-31"
-                        label="Celphone"
-                        type="number"
-                        value={schedulerData.celphone}
-                        onChange={(e) => setSchedulerObj(e.target.value, 'celphone')}
+                        label="Email"
+                        value={userInfo.email}
+                        onChange={(e) => setSchedulerObj(e.target.value, 'email')}
                     />
-                    <span className='explanation'>*Example: (21) 99999-9999</span>
                 </Col>
                 <Col
                     l={4}
