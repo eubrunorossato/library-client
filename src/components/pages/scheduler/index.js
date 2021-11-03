@@ -51,16 +51,13 @@ const Scheduler = (props) => {
             });
             errorList = [];
         } else {
-            const { status, data } = await axiosInstance.post('/api/request/create', schedulerData);
-            console.log(status, data);
-            if (status !== 200) {
-                toast.error(data.message);
-            } else {
-                toast.success('Livro reservado com sucesso. Verifique o seu email com o código de retirada do Livro.');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 5000)
-            }
+            const { status, data } = await axiosInstance.post('/api/request/create', schedulerData, {
+                validateStatus: () => {
+                    return true;
+                }
+            })
+            if (status === 200) toast.success('Livro criado com sucesso. Um e-mail foi enviado com o cóidgo de retirada do seu livro.');
+            else if (status === 500) toast.warn(data.message);
         }
     };
 
